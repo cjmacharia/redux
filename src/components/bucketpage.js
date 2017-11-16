@@ -41,24 +41,21 @@ class bucketPage extends Component{
     updateBucket = id => e =>{
         e.preventDefault();
         id = this.state.id
-
-        console.log(id)
         this.props.bucketsAction.editBucket(id, {name: this.state.name})
-    }
-
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps, 'props');
     }
 
     componentWillMount(){
         this.props.bucketsAction.loadBuckets()
-
     }
       render(){
+          const messages = this.props.buckets.message
           const bucketlists = this.props.buckets.bucket
           return(
             <div>
-                <form onSubmit={this.onSubmit}>
+                     {messages.map((themessage) =>(
+                <tr key = {themessage.message} >{themessage.message}</tr>
+            ))}
+                <form onSubmit={this.onSubmit }>
                 <Panel header='add buckets' bsStyle="warning">
                 <FormGroup>
                 <FormControl type="text" placeholder="name" defaultValue={this.state.name} onChange={this.onChange} name="name" required/>
@@ -103,7 +100,7 @@ class bucketPage extends Component{
                     <FormGroup>
                         <InputGroup>
                             <FormControl type="text" defaultValue={this.state.name} onChange={this.onChange} name="name" required />
-                    <InputGroup.Button><Button bsStyle="primary" type="submit">Submit</Button></InputGroup.Button>
+                    <InputGroup.Button><Button bsStyle="primary" onClick={(event => this.setState({ editbucketModal: false }))} type="submit">Submit</Button></InputGroup.Button>
                   </InputGroup>
                 </FormGroup>
               </form>

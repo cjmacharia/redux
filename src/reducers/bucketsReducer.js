@@ -16,14 +16,14 @@ const bucketReducer = (state = initState, action) => {
           } ;
         case types.DELETE_BUCKETS_SUCCESS:
         return {...state,
-          message:action.bucket,
+          message:[action.bucket],
           bucket: state.bucket.filter(bucket => bucket.id !== action.id)
         };
         case types.EDIT_BUCKETS_SUCCESS:
         return{
           ...state,
            bucket:state.bucket.map(buck => action.id === buck.id? action.bucket.bucket:buck),
-           message:action.bucket.message
+           message:[action.bucket]
         };
         console.log(action.id, "action id")
     default:
