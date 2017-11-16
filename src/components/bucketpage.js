@@ -43,7 +43,11 @@ class bucketPage extends Component{
         id = this.state.id
 
         console.log(id)
-        this.props.bucketsAction.editBucket(id, this.state.name)
+        this.props.bucketsAction.editBucket(id, {name: this.state.name})
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps, 'props');
     }
 
     componentWillMount(){
@@ -62,9 +66,11 @@ class bucketPage extends Component{
                 <Button bsStyle="success" type="submit">submit</Button>
                 </Panel>
                 </form>
-
+                    <table>
+                        <tbody>
                     {
                 bucketlists.map((bucket) =>(
+
                     <tr key={bucket.id}>
                     <td>{bucket.name}</td>
                     <td>
@@ -82,8 +88,12 @@ class bucketPage extends Component{
                                       </ReactTooltip>
                         </td>
                     </tr>
+
+
                 ))
                     }
+                     </tbody>
+                    </table>
             <Modal show={this.state.editbucketModal} onHide={this.close}>
             <Modal.Header onClick={(event => this.setState({ editbucketModal: false }))} closeButton>
               <Modal.Title>edit this bucket </Modal.Title>

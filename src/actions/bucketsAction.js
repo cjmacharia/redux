@@ -6,8 +6,8 @@ const apiUrl = 'http://localhost:5000/api/bucketlists ';
 export const createBucketSuccess = (bucket) => {
     return { type: types.CREATE_BUCKET, bucket }
 }
-export const editBucketSuccess = (bucket) => {
-    return { type: types.EDIT_BUCKETS_SUCCESS, bucket }
+export const editBucketSuccess = (bucket, id) => {
+    return { type: types.EDIT_BUCKETS_SUCCESS, bucket, id }
 }
 export const fetchBucketsSuccess = (bucket) => {
     return { type: types.FETCH_BUCKETS_SUCCESS, bucket }
@@ -66,18 +66,18 @@ export const deleteBucket = (id) => {
     }
 }
 export const editBucket = (id, payload ) => {
-    console.log(payload,'payload')
     return function (dispatch){
         return axios.put('http://localhost:5000/api/bucketlists/'+id,
         payload,
         {
+        method:'PUT',
         headers:{
             Authorization: 'Bearer ' + store.getState().loginReducer.token,
             content_type: 'application/json',
         }
         }).then(response =>{
             console.log(response,'yeeeey')
-            dispatch(editBucketSuccess(response.data))
+            dispatch(editBucketSuccess(response.data, id))
         }).catch(error =>{
             console.log(error)
         })

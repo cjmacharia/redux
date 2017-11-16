@@ -1,5 +1,5 @@
 import * as types from '../actions/actionTypes';
-
+import _ from "lodash";
 const initState = {
   bucket: [],
   message: ''
@@ -22,8 +22,10 @@ const bucketReducer = (state = initState, action) => {
         case types.EDIT_BUCKETS_SUCCESS:
         return{
           ...state,
-          message: action.bucket
-        }
+           bucket:state.bucket.map(buck => action.id === buck.id? action.bucket.bucket:buck),
+           message:action.bucket.message
+        };
+        console.log(action.id, "action id")
     default:
       return state
     }
