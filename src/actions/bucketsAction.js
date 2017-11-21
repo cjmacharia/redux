@@ -1,7 +1,6 @@
 import * as types from './actionTypes';
 import axios from 'axios';
 import store from '../store/configureStore'
-import { createStore } from 'redux'
 const apiUrl = 'http://localhost:5000/api/bucketlists ';
 export const createBucketSuccess = (bucket) => {
     return { type: types.CREATE_BUCKET, bucket }
@@ -43,7 +42,8 @@ export const loadBuckets = () => {
                 content_type: 'application/json',
             }
         }).then(response => {
-            dispatch(fetchBucketsSuccess(response.data.bucketlists))
+            console.log(response.data)
+            dispatch(fetchBucketsSuccess(response.data))
         })
             .catch(error => {
             })
@@ -59,6 +59,7 @@ export const deleteBucket = (id) => {
             content_type: 'application/json',
         }
         }).then(response =>{
+            console.log(response)
             dispatch(deleteBucketSuccess(response.data, id))
         }).catch(error =>{
             console.log(error)
@@ -76,7 +77,6 @@ export const editBucket = (id, payload ) => {
             content_type: 'application/json',
         }
         }).then(response =>{
-            console.log(response,'yeeeey')
             dispatch(editBucketSuccess(response.data, id))
         }).catch(error =>{
             console.log(error)

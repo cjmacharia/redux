@@ -30,6 +30,7 @@ class bucketPage extends Component{
         const bucketDetails = {
             name:this.state.name
         }
+        this.props.bucketsAction.loadBuckets()
         this.props.bucketsAction.createBuckets(bucketDetails)
     }
 
@@ -52,9 +53,6 @@ class bucketPage extends Component{
           const bucketlists = this.props.buckets.bucket
           return(
             <div>
-                     {messages.map((themessage) =>(
-                <tr key = {themessage.message} >{themessage.message}</tr>
-            ))}
                 <form onSubmit={this.onSubmit }>
                 <Panel header='add buckets' bsStyle="warning">
                 <FormGroup>
@@ -79,7 +77,7 @@ class bucketPage extends Component{
                                         <ReactTooltip id='delete' type='error'>
                                           <span>delete this bucket</span>
                                         </ReactTooltip>
-                                    <a data-tip="React-tooltip" data-for='view' className="btn btn-info"><i className="fa fa-eye"></i> </a>
+                                    <a data-tip="React-tooltip" data-for='view' href={"/bucket/"+bucket.id+"/items"} className="btn btn-info"><i className="fa fa-eye"></i> </a>
                                         <ReactTooltip id='view' type='info'>
                                           <span>view items in this bucket</span>
                                       </ReactTooltip>

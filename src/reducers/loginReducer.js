@@ -8,6 +8,7 @@ export const loginReducer = (state = initState, action)=>{
     case types.LOGIN_SUCCESS:
       return {...state,
          token:action.user.access_token
+
   }
     default:
       return state
